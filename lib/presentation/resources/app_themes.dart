@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_advanced/presentation/resources/app_colors.dart';
 import 'package:flutter_advanced/presentation/resources/app_fonts.dart';
 import 'package:flutter_advanced/presentation/resources/app_style.dart';
@@ -31,6 +32,10 @@ class AppTheme {
           color: AppColors.white,
           fontSize: AppFontSize.f16,
         ),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: AppColors.oragne,
+        ),
       ),
 
       // button theme
@@ -57,13 +62,21 @@ class AppTheme {
 
       // text theme
       textTheme: TextTheme(
-        headlineMedium: AppStyle.getBold(
+        headlineLarge: AppStyle.getSemiBold(
           color: AppColors.darkGrey,
           fontSize: AppFontSize.f16,
+        ),
+        headlineMedium: AppStyle.getRegular(
+          color: AppColors.darkGrey,
+          fontSize: AppFontSize.f14,
         ),
         titleMedium: AppStyle.getMedium(
           color: AppColors.lightGrey,
           fontSize: AppFontSize.f14,
+        ),
+        titleSmall: AppStyle.getMedium(
+          color: AppColors.oragne,
+          fontSize: AppFontSize.f16,
         ),
         bodyMedium: AppStyle.getRegular(
           color: AppColors.grey1,
@@ -98,18 +111,14 @@ class AppTheme {
         // error border
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
-          borderSide:
-              const BorderSide(color: AppColors.red, width: AppSize.s1),
+          borderSide: const BorderSide(color: AppColors.red, width: AppSize.s1),
         ),
 
         // focused error border
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
-          borderSide:
-              const BorderSide(color: AppColors.red, width: AppSize.s1),
+          borderSide: const BorderSide(color: AppColors.red, width: AppSize.s1),
         ),
-
-      
       ),
     );
   }

@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _goNext() {
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+    Navigator.pushReplacementNamed(context, AppRoutes.onBoarding);
   }
 
   @override
