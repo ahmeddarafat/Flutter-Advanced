@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/presentation/login/login_page.dart';
-import 'package:flutter_advanced/presentation/onboarding/onboarding.dart';
+import 'package:flutter_advanced/presentation/onboarding/view/onboarding_view.dart';
 import 'package:flutter_advanced/presentation/register/register_page.dart';
 import 'package:flutter_advanced/presentation/splash/splash_page.dart';
 

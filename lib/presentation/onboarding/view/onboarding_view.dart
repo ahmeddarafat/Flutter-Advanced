@@ -1,11 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_advanced/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutter_advanced/presentation/resources/app_assets.dart';
 import 'package:flutter_advanced/presentation/resources/app_colors.dart';
 import 'package:flutter_advanced/presentation/resources/app_constants.dart';
 import 'package:flutter_advanced/presentation/resources/app_strings.dart';
 import 'package:flutter_advanced/presentation/resources/app_values.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../domain/models.dart';
 
 class OnBoardingLayouts extends StatefulWidget {
   const OnBoardingLayouts({super.key});
@@ -16,42 +20,28 @@ class OnBoardingLayouts extends StatefulWidget {
 
 class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
   final PageController _pageController = PageController();
+  final OnBoardingViewModel _viewModel = OnBoardingViewModel();
 
-  final List<OnBoardingObject> _onBoradingContent = [
-    OnBoardingObject(
-      AppStrings.onBoardingTitle1,
-      AppStrings.onBoardingSubtitle1,
-      AppAssets.onBoardingLogo1,
-      AppSize.s267,
-      AppSize.s267,
-    ),
-    OnBoardingObject(
-      AppStrings.onBoardingTitle2,
-      AppStrings.onBoardingSubtitle2,
-      AppAssets.onBoardingLogo2,
-      AppSize.s326,
-      AppSize.s326,
-    ),
-    OnBoardingObject(
-      AppStrings.onBoardingTitle3,
-      AppStrings.onBoardingSubtitle3,
-      AppAssets.onBoardingLogo3,
-      AppSize.s287,
-      AppSize.s287,
-    ),
-    OnBoardingObject(
-      AppStrings.onBoardingTitle4,
-      AppStrings.onBoardingSubtitle4,
-      AppAssets.onBoardingLogo4,
-      AppSize.s356,
-      AppSize.s356,
-    ),
-  ];
-
-  int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.start();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: _viewModel.outputSliderViewObject,
+      builder: (context, snapshot) {
+        // TODO: remember to test '!'
+        return _getBuildWidget(snapshot.data!);
+      },
+    );
+  }
+
+  // helper Methods
+
+  Widget _getBuildWidget(SliderViewObject sliderViewObject) {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -67,15 +57,11 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
           padding: const EdgeInsets.all(AppPading.p16),
           child: PageView.builder(
             controller: _pageController,
-            itemCount: _onBoradingContent.length,
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
+            itemCount: sliderViewObject.numOfSlides,
+            onPageChanged: _viewModel.onPageChanged,
             itemBuilder: (context, index) {
               return OnBoardingPage(
-                  onBoardingObject: _onBoradingContent[index]);
+                  onBoardingObject: sliderViewObject.sliderObject);
             },
           ),
         ),
@@ -93,18 +79,19 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
                   AppStrings.skip,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  // TODO: skip button
+                },
               ),
             ),
-            Expanded(child: _getIndicator()),
+            Expanded(child: _getIndicator(sliderViewObject)),
           ],
         ),
       ),
     );
   }
 
-  // helper Methods
-  Widget _getIndicator() {
+  Widget _getIndicator(SliderViewObject sliderViewObject) {
     return Container(
       color: AppColors.oragne,
       child: Row(
@@ -113,13 +100,10 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
           // left arrow
           GestureDetector(
             onTap: () {
-              print("the current index is ${_currentIndex}");
-              if (_currentIndex > 0) {
-                _pageController.previousPage(
-                    duration: const Duration(
-                        milliseconds: AppConstants.sliderAnimationTime),
-                    curve: Curves.easeIn);
-              }
+              _pageController.animateToPage(_viewModel.goPrevious(),
+                  duration: const Duration(
+                      milliseconds: AppConstants.sliderAnimationTime),
+                  curve: Curves.easeIn);
             },
             child: Padding(
               padding: const EdgeInsets.all(AppPading.p16),
@@ -133,23 +117,20 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
           // custom dots
           Row(
             children: [
-              for (int i = 0; i < _onBoradingContent.length; i++)
+              for (int i = 0; i < sliderViewObject.numOfSlides; i++)
                 Padding(
                   padding: const EdgeInsets.all(AppPading.p8),
-                  child: _getProperCircle(i),
+                  child: _getProperCircle(i, sliderViewObject.currentIndex),
                 ),
             ],
           ),
           // right arrow
           GestureDetector(
             onTap: () {
-              print("the current index is ${_currentIndex}");
-              if (_currentIndex < _onBoradingContent.length - 1) {
-                _pageController.nextPage(
-                    duration: const Duration(
-                        milliseconds: AppConstants.sliderAnimationTime),
-                    curve: Curves.easeIn);
-              }
+              _pageController.animateToPage(_viewModel.goNext(),
+                  duration: const Duration(
+                      milliseconds: AppConstants.sliderAnimationTime),
+                  curve: Curves.easeIn);
             },
             child: Padding(
               padding: const EdgeInsets.all(AppPading.p16),
@@ -165,8 +146,8 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
     );
   }
 
-  Widget _getProperCircle(int index) {
-    if (_currentIndex == index) {
+  Widget _getProperCircle(int index, int currentIndex) {
+    if (currentIndex == index) {
       return SvgPicture.asset(
         AppAssets.hollowCircleIc,
       );
@@ -175,10 +156,16 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
       AppAssets.solidCircleIc,
     );
   }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 }
 
 class OnBoardingPage extends StatelessWidget {
-  final OnBoardingObject onBoardingObject;
+  final SliderObject onBoardingObject;
   const OnBoardingPage({super.key, required this.onBoardingObject});
 
   @override
@@ -206,20 +193,10 @@ class OnBoardingPage extends StatelessWidget {
           height: AppSize.s287,
           width: AppSize.s287,
         ),
-        const SizedBox(height: AppSize.s40,)
+        const SizedBox(
+          height: AppSize.s40,
+        )
       ],
     );
   }
-}
-
-class OnBoardingObject {
-  final String title;
-  final String subtitle;
-  final String image;
-  // TODO: remeber delete or edit
-  // height & width for image
-  final double imgHeight;
-  final double imgWidth;
-
-  OnBoardingObject(this.title, this.subtitle, this.image, this.imgHeight, this.imgWidth);
 }
