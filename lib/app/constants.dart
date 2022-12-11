@@ -5,9 +5,10 @@ class Constants{
   // methods
   static const String login ="/customer/login";
 
-  // constanct
+  // constants
   static const String empty ="";
   static const int zero =0;
+  static const int apiTimeOut = 60 * 1000;
 
 
 }
