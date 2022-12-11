@@ -9,7 +9,7 @@ import 'package:flutter_advanced/presentation/resources/app_strings.dart';
 import 'package:flutter_advanced/presentation/resources/app_values.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../domain/models.dart';
+import '../../../domain/models/models.dart';
 
 class OnBoardingLayouts extends StatefulWidget {
   const OnBoardingLayouts({super.key});
