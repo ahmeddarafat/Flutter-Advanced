@@ -1,5 +1,6 @@
 import 'package:flutter_advanced/data/data_source/remote_data_source.dart';
 import 'package:flutter_advanced/data/mapper/mapper.dart';
+import 'package:flutter_advanced/data/network/error_handler.dart';
 import 'package:flutter_advanced/data/network/netwrok_info.dart';
 import 'package:flutter_advanced/domain/models/models.dart';
 import 'package:flutter_advanced/data/network/requests.dart';
@@ -19,20 +20,25 @@ class RepositoryImpl implements Repository {
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       /// there is internet
-      final AuthentecationResponse response =
-          await _remoteDataSource.login(loginRequest);
-      if (response.status == 0) {
-        /// success
-        // Right means the right return type
-        return Right(response.toDomain());
-      } else {
-        /// failure -- Business error 
-        // Left means the Left return type
-        return Left(Failure(400, response.message ?? "Business error"));
+      try {
+        final AuthentecationResponse response =
+            await _remoteDataSource.login(loginRequest);
+        if (response.status == ApiInternalStatus.success) {
+          /// success
+          // Right means the right return type
+          return Right(response.toDomain());
+        } else {
+          /// failure -- Business error
+          // Left means the Left return type
+          return Left(Failure(ApiInternalStatus.failure,
+              response.message ?? ResponseMessage.unknown));
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       /// there is not internet
-      return Left(Failure(501, "please, Check you Network"));
+      return Left(DataSource.noInternetConnection.getFailure());
     }
   }
 }
@@ -40,5 +46,5 @@ class RepositoryImpl implements Repository {
 // Draft
 
 // Either :
-//     Function: 
-//          - it is able to return 2 type 
+//     Function:
+//          - it is able to return 2 type
