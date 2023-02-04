@@ -1,7 +1,6 @@
 
 // Extension:
 // it add some methods for a certain class [String]
-import 'package:flutter/rendering.dart';
 import 'package:flutter_advanced/app/constants.dart';
 
 extension NonNullString on String? {
@@ -22,6 +21,7 @@ extension NonNullInteger on int? {
     }
   }
 }
+
 // when you use
 // void test(){
 //   int? number ;

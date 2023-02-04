@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // primary colors
-  static const Color oragne = Color(0xffED9728);
-  static const Color lightOragne = Color(0xccED9728);  // 80 %  opacity
-  static const Color darkOragne = Color(0xffd17d11);   
+  static const Color orange = Color(0xffED9728);
+  static const Color lightOrange = Color(0xccED9728);  // 80 %  opacity
+  static const Color darkOrange = Color(0xffd17d11);   
 
   static const Color darkGrey = Color(0xff505050);
   static const Color grey = Color(0xff737477);

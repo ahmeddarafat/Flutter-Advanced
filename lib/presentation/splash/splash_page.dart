@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../resources/app_assets.dart';
-import '../resources/app_colors.dart';
-import '../resources/app_router.dart';
+import '../resources/constants/app_assets.dart';
+import '../resources/styles/app_colors.dart';
+import '../resources/switchers/app_router.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.oragne,
+      backgroundColor: AppColors.orange,
       body: Center(child: Image.asset(AppAssets.splashLogo)),
     );
   }

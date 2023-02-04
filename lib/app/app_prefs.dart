@@ -1,4 +1,4 @@
-import 'package:flutter_advanced/presentation/resources/app_langauges.dart';
+import 'package:flutter_advanced/presentation/resources/switchers/app_langauges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String prefsKeyLang = "Prefs-Key-Lang";

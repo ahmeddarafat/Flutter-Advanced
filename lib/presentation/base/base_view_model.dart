@@ -1,5 +1,4 @@
-abstract class BaseViewModel extends BaseViewModelInput
-    with BaseViewModelOutput {}
+abstract class BaseViewModel with BaseViewModelInput, BaseViewModelOutput {}
 
 abstract class BaseViewModelInput {
   void start();

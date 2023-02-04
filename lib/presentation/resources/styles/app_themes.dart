@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_advanced/presentation/resources/app_colors.dart';
-import 'package:flutter_advanced/presentation/resources/app_fonts.dart';
-import 'package:flutter_advanced/presentation/resources/app_style.dart';
-import 'package:flutter_advanced/presentation/resources/app_values.dart';
+import 'package:flutter_advanced/presentation/resources/styles/app_colors.dart';
+import 'package:flutter_advanced/presentation/resources/styles/app_fonts.dart';
+import 'package:flutter_advanced/presentation/resources/styles/app_style.dart';
+import 'package:flutter_advanced/presentation/resources/constants/app_values.dart';
 
 class AppTheme {
   static ThemeData getLight() {
     return ThemeData(
       // main colors
-      primaryColor: AppColors.oragne,
-      primaryColorDark: AppColors.darkOragne,
-      primaryColorLight: AppColors.lightOragne,
+      primaryColor: AppColors.orange,
+      primaryColorDark: AppColors.darkOrange,
+      primaryColorLight: AppColors.lightOrange,
       disabledColor: AppColors.grey1,
-      splashColor: AppColors.lightOragne,
+      splashColor: AppColors.lightOrange,
 
       // CardView theme
       /// what's this theme used for
@@ -25,16 +25,16 @@ class AppTheme {
       // AppBar theme
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        color: AppColors.oragne,
+        color: AppColors.orange,
         elevation: AppSize.s4,
-        shadowColor: AppColors.lightOragne,
+        shadowColor: AppColors.lightOrange,
         titleTextStyle: AppStyle.getRegular(
           color: AppColors.white,
           fontSize: AppFontSize.f16,
         ),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: AppColors.oragne,
+          statusBarColor: AppColors.orange,
         ),
       ),
 
@@ -42,8 +42,8 @@ class AppTheme {
       buttonTheme: const ButtonThemeData(
         shape: StadiumBorder(),
         disabledColor: AppColors.grey1,
-        buttonColor: AppColors.oragne,
-        splashColor: AppColors.lightOragne,
+        buttonColor: AppColors.orange,
+        splashColor: AppColors.lightOrange,
       ),
 
       // elevated button theme
@@ -53,7 +53,7 @@ class AppTheme {
             color: AppColors.white,
             fontSize: AppFontSize.f17,
           ),
-          backgroundColor: AppColors.oragne,
+          backgroundColor: AppColors.orange,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s12),
           ),
@@ -75,7 +75,7 @@ class AppTheme {
           fontSize: AppFontSize.f14,
         ),
         titleSmall: AppStyle.getMedium(
-          color: AppColors.oragne,
+          color: AppColors.orange,
           fontSize: AppFontSize.f16,
         ),
         bodyMedium: AppStyle.getRegular(
@@ -92,7 +92,7 @@ class AppTheme {
         hintStyle: AppStyle.getRegular(
             color: AppColors.grey, fontSize: AppFontSize.f14),
         labelStyle: AppStyle.getMedium(
-            color: AppColors.oragne, fontSize: AppFontSize.f14),
+            color: AppColors.orange, fontSize: AppFontSize.f14),
 
         // enabled border
         enabledBorder: OutlineInputBorder(
@@ -105,7 +105,7 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
           borderSide:
-              const BorderSide(color: AppColors.oragne, width: AppSize.s1),
+              const BorderSide(color: AppColors.orange, width: AppSize.s1),
         ),
 
         // error border

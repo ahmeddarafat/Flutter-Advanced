@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/presentation/resources/app_fonts.dart';
+import 'package:flutter_advanced/presentation/resources/styles/app_fonts.dart';
 
 class AppStyle {
   static TextStyle _getTextStyle(

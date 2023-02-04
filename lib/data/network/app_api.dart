@@ -8,8 +8,8 @@ part 'app_api.g.dart';
 // that overrides all methods and add the functionality for each one
 @RestApi(baseUrl: Constants.baseUrl)
 abstract class AppServiceClient {
-  factory AppServiceClient(Dio dio, {String? baseUrl}) =>
-      _AppServiceClient(dio, baseUrl: baseUrl);
+  factory AppServiceClient(Dio dio, {String? baseUrl}) =
+      _AppServiceClient;
 
   // add @Post(String path) for the method needs to be overrided and post means the type of its method
   @POST(Constants.login)

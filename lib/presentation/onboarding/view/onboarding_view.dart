@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
-import 'package:flutter_advanced/presentation/resources/app_assets.dart';
-import 'package:flutter_advanced/presentation/resources/app_colors.dart';
-import 'package:flutter_advanced/presentation/resources/app_constants.dart';
-import 'package:flutter_advanced/presentation/resources/app_strings.dart';
-import 'package:flutter_advanced/presentation/resources/app_values.dart';
+import 'package:flutter_advanced/presentation/resources/constants/app_assets.dart';
+import 'package:flutter_advanced/presentation/resources/styles/app_colors.dart';
+import 'package:flutter_advanced/presentation/resources/constants/app_constants.dart';
+import 'package:flutter_advanced/presentation/resources/constants/app_strings.dart';
+import 'package:flutter_advanced/presentation/resources/constants/app_values.dart';
+import 'package:flutter_advanced/presentation/resources/switchers/app_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../domain/models/models.dart';
@@ -80,7 +81,7 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onPressed: () {
-                  // TODO: skip button
+                 Navigator.of(context).pushReplacementNamed(AppRoutes.login);
                 },
               ),
             ),
@@ -93,7 +94,7 @@ class _OnBoardingLayoutsState extends State<OnBoardingLayouts> {
 
   Widget _getIndicator(SliderViewObject sliderViewObject) {
     return Container(
-      color: AppColors.oragne,
+      color: AppColors.orange,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
